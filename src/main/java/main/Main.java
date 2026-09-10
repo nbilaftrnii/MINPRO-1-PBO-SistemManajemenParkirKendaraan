@@ -101,10 +101,10 @@ public class Main {
             System.out.println();
             System.out.println("|===================================================|");
             System.out.println("|                                                   |");
-            System.out.println("|                🚗  MY PARKIR GW 🚗                 |");
+            System.out.println("|                🚗  MY PARKIR GW 🚗                  |");
             System.out.println("|         SISTEM MANAJEMEN PARKIR KENDARAAN         |");
             System.out.println("|                                                   |");
-            System.out.println("|           ───────  Smart Parking  ───────           |");
+            System.out.println("|           ------- Smart Parking  -------          |");
             System.out.println("|                                                   |");
             System.out.println("|===================================================|");
             System.out.println("------------------- MENU UTAMA ----------------------");
@@ -120,14 +120,11 @@ public class Main {
             System.out.println("|   [9]  Keluar                                     |");
             System.out.println("|                                                   |");
             System.out.println("-----------------------------------------------------");
-            System.out.print("Pilih Menu: ");
-            pilihan = input.nextInt();
-            input.nextLine();
+            pilihan = inputIntPositif(input, "Pilih Menu: ");
 
             switch (pilihan) {
                 // Tambah Kendaraan
                 case 1 -> {
-                    System.out.print("ID Kendaraan: ");
                     int id = inputIntPositif( 
                             input, 
                             "ID Kendaraan: " 
