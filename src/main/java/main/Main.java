@@ -14,6 +14,83 @@ import java.util.Scanner;
  * @author ASUS
  */
 public class Main {
+    // Validasi Input
+    public static int inputIntPositif(Scanner input, String pesan) { 
+        int angka;
+        while (true) { 
+            System.out.print(pesan);
+            if (input.hasNextInt()) { 
+                angka = input.nextInt();
+                input.nextLine();
+                
+            if (angka > 0) { 
+                return angka;
+            } else { 
+                System.out.println("Input harus lebih dari 0!");
+            }
+        } else { 
+                System.out.println("Input harus berupa angka!");
+                input.nextLine();
+            }
+        } 
+    }
+    public static String inputTidakKosong(Scanner input, String pesan) { 
+        String data;
+        while (true) { 
+            System.out.print(pesan);
+            data = input.nextLine().trim(); 
+            
+            if (!data.isEmpty()) { 
+                return data;
+            }
+            System.out.println("Input tidak boleh kosong!");
+        }
+    }
+    public static String inputJenisKendaraan(Scanner input) { 
+        while (true) {
+           String jenis = inputTidakKosong( 
+                   input, 
+                   "Jenis Kendaraan (Motor/Mobil): " 
+           ); 
+           if (jenis.equalsIgnoreCase("Motor")) { 
+               return "Motor";
+           }  
+           if (jenis.equalsIgnoreCase("Mobil")) { 
+               return "Mobil";
+           }
+            System.out.println("Jenis kendaraan hanya Motor atau Mobil!");
+        }
+    }
+    public static String inputJenisSlot(Scanner input) { 
+        while (true) { 
+            String jenis = inputTidakKosong( 
+                    input, 
+                    "Jenis Slot (Motor/Mobil): " 
+            );
+            if (jenis.equalsIgnoreCase("Motor")) { 
+                return "Motor";
+            }
+            if (jenis.equalsIgnoreCase("Mobil")) { 
+                return "Mobil"; 
+            }
+            System.out.println("Jenis slot hanya Motor atau Mobil!");
+        }
+    }
+    public static String inputMetodePembayaran(Scanner input) { 
+        while (true) { 
+            String metode = inputTidakKosong( 
+                    input, 
+                    "Metode Pembayaran (Cash/QRIS): " 
+            );
+            if (metode.equalsIgnoreCase("Cash")) { 
+                return "Cash"; 
+            }
+            if (metode.equalsIgnoreCase("QRIS")) { 
+                return "QRIS"; 
+            }
+            System.out.println("Metode pembayaran hanya Cash atau QRIS!");
+        }
+    }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ParkirService service = new ParkirService();
@@ -51,77 +128,135 @@ public class Main {
                 // Tambah Kendaraan
                 case 1 -> {
                     System.out.print("ID Kendaraan: ");
-                    int id = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Nomor Plat: ");
-                    String plat = input.nextLine();
-                    System.out.print("Jenis Kendaraan (Motor/Mobil): ");
-                    String jenis = input.nextLine();
-                    System.out.print("Merk: ");
-                    String merk = input.nextLine();
-                    System.out.print("Warna: ");
-                    String warna = input.nextLine();
-                    Kendaraan kendaraan =
-                            new Kendaraan(id, plat, jenis, merk, warna);
+                    int id = inputIntPositif( 
+                            input, 
+                            "ID Kendaraan: " 
+                    );
+                    String plat = inputTidakKosong( 
+                            input, "Nomor Plat: " 
+                    );
+                    String jenis = inputJenisKendaraan(input); 
+                    String merk = inputTidakKosong( 
+                            input, 
+                            "Merk: " 
+                    );
+                    String warna = inputTidakKosong( 
+                            input, 
+                            "Warna: " 
+                    );
+                    Kendaraan kendaraan = new Kendaraan( 
+                            id, 
+                            plat, 
+                            jenis, 
+                            merk, 
+                            warna 
+                    );
                     service.tambahKendaraan(kendaraan);
                 }
                 // Tambah Petugas
                 case 2 -> {
-                    System.out.print("ID Petugas: ");
-                    int id = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Nama Petugas: ");
-                    String nama = input.nextLine();
-                    System.out.print("Username: ");
-                    String username = input.nextLine();
-                    System.out.print("Password: ");
-                    String password = input.nextLine();
-                    System.out.print("Shift: ");
-                    String shift = input.nextLine();
-                    Petugas petugas =
-                            new Petugas(id, nama, username, password, shift);
+                    int id = inputIntPositif( 
+                            input, 
+                            "ID Petugas: " 
+                    ); 
+                    String nama = inputTidakKosong( 
+                            input, 
+                            "Nama Petugas: " 
+                    ); 
+                    String username = inputTidakKosong( 
+                            input, 
+                            "Username: " 
+                    ); 
+                    String password = inputTidakKosong( 
+                            input, 
+                            "Password: " 
+                    );
+                    String shift = inputTidakKosong( 
+                            input, 
+                            "Shift: " 
+                    ); 
+                    Petugas petugas = new Petugas( 
+                            id, 
+                            nama, 
+                            username, 
+                            password, 
+                            shift 
+                    );
                     service.tambahPetugas(petugas);
                 }
                 // Tambah Slot
                 case 3 -> {
-                    System.out.print("ID Slot: ");
-                    int id = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Nomor Slot: ");
-                    String nomor = input.nextLine();
-                    System.out.print("Jenis Slot (Motor/Mobil): ");
-                    String jenis = input.nextLine();
-                    SlotParkir slot =
-                            new SlotParkir(id, nomor, jenis, "Kosong");
+                    int id = inputIntPositif( 
+                            input, 
+                            "ID Slot: " 
+                    ); 
+                    String nomor = inputTidakKosong( 
+                            input, 
+                            "Nomor Slot: " 
+                    );
+                    String jenis = inputJenisSlot(input); 
+                    SlotParkir slot = new SlotParkir( 
+                            id, 
+                            nomor, 
+                            jenis, 
+                            "Kosong" 
+                    );
                     service.tambahSlot(slot);
                 }
                 // TAMBAH PARKIR
                 case 4 -> {
-                    System.out.print("ID Parkir: ");
-                    int idParkir = input.nextInt();
-                    System.out.print("ID Kendaraan: ");
-                    int idKendaraan = input.nextInt();
-                    System.out.print("ID Petugas: ");
-                    int idPetugas = input.nextInt();
-                    System.out.print("ID Slot: ");
-                    int idSlot = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Waktu Masuk: ");
-                    String waktuMasuk = input.nextLine();
-                    Kendaraan kendaraan =
-                            service.cariKendaraan(idKendaraan);
-                    Petugas petugas =
-                            service.cariPetugas(idPetugas);
-                    SlotParkir slot =
-                            service.cariSlot(idSlot);
+                    int idParkir = inputIntPositif( 
+                            input, 
+                            "ID Parkir: " 
+                    ); 
+                // Cek ID parkir 
+                if (service.cariById(idParkir) != null) { 
+                    System.out.println( 
+                            "ID Parkir sudah digunakan!" 
+                    ); 
+                    break; 
+                } 
+                int idKendaraan = inputIntPositif( 
+                        input, 
+                        "ID Kendaraan: " 
+                );
+                int idPetugas = inputIntPositif( 
+                        input, 
+                        "ID Petugas: " 
+                ); 
+                int idSlot = inputIntPositif( 
+                        input, 
+                        "ID Slot: " 
+                ); 
+                String waktuMasuk = inputTidakKosong( 
+                        input, 
+                        "Waktu Masuk: " 
+                ); 
+                Kendaraan kendaraan =
+                    service.cariKendaraan(idKendaraan);
+                Petugas petugas =
+                    service.cariPetugas(idPetugas);
+                SlotParkir slot =
+                    service.cariSlot(idSlot);
+                //Validasi
                     if (kendaraan == null) {
                         System.out.println("Kendaraan tidak ditemukan!");
                     } else if (petugas == null) {
                         System.out.println("Petugas tidak ditemukan!");
                     } else if (slot == null) {
                         System.out.println("Slot tidak ditemukan!");
-                    } else if (!slot.getStatusSlot().equalsIgnoreCase("Kosong")) {
+                    } else if (!slot.getStatusSlot()
+                                .equalsIgnoreCase("Kosong")) {
                         System.out.println("Slot sedang terisi!");
+                    } else if ( !slot.getJenisSlot() 
+                            .equalsIgnoreCase( 
+                                kendaraan.getJenisKendaraan() 
+                            ) 
+                    ) {
+                        System.out.println( 
+                                "Jenis kendaraan tidak sesuai " 
+                                        + "dengan jenis slot!" 
+                        );
                     } else {
                         Parkir parkir = new Parkir(
                                 idParkir,
